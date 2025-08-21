@@ -1,3 +1,3 @@
 # GYMASSISTANCE
 
-##QR Fit: Tu entrada al progreso
+QR Fit: Tu entrada al progreso
