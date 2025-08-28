@@ -8,5 +8,8 @@
 4- Verificar que "uv" esta instalado
 5- Crear un entorno virtual "uv venv"
 6- Crear las carpetas (app, document, test)
+7- app.py copiar codigo
+8- init dentro del app
+
 
 QR Fit: Tu entrada al progreso
