@@ -10,6 +10,6 @@
 6- Crear las carpetas (app, document, test)
 7- app.py copiar codigo
 8- init dentro del app
-
+9- 
 
 QR Fit: Tu entrada al progreso
