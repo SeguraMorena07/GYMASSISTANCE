@@ -1,21 +1,36 @@
-services:    
-    mysql:
-        container_name: mysql-servidor
-        image: mysql:8-debian
-        
-        command: --default-authentication-plugin=mysql_native_password
+version: '3.8'
 
-        networks:
-            - mired
-        ports:
-            - "3306:3306"
-        environment:
-            - MYSQL_USER=${MYSQL_USER}
-            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
-            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-        volumes:
-            - ~/dockers/mysql/_data:/var/lib/mysql
+services:
+  backend:
+    build: .
+    container_name: asistenciasqr_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_APP=app
+      - FLASK_ENV=development
+      - DATABASE_URL=mysql+pymysql://flask_user:umsanrafael@mysql-servidor/asistenciasqr
+    depends_on:
+      - mysql
+    networks:
+      - mired
+
+  mysql:
+    container_name: mysql-servidor
+    image: mysql:8-debian
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=asistenciasqr
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./dockers/mysql/_data:/var/lib/mysql
+    networks:
+      - mired
+
 networks:
-    mired:
-      external: true
+  mired:
+    external: true
