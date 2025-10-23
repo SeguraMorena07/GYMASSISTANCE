@@ -142,3 +142,6 @@ pyvenv.cfg
 # add migration files
 migrations/
 
+dockers/mysql/_data/
+
+

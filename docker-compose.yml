@@ -1,20 +1,6 @@
 version: '3.8'
 
 services:
-  backend:
-    build: .
-    container_name: asistenciasqr_backend
-    ports:
-      - "5000:5000"
-    environment:
-      - FLASK_APP=app
-      - FLASK_ENV=development
-      - DATABASE_URL=mysql+pymysql://flask_user:umsanrafael@mysql-servidor/asistenciasqr
-    depends_on:
-      - mysql
-    networks:
-      - mired
-
   mysql:
     container_name: mysql-servidor
     image: mysql:8-debian
@@ -22,12 +8,22 @@ services:
     ports:
       - "3307:3306"
     environment:
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=root
-      - MYSQL_DATABASE=asistenciasqr
       - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=asistenciasqr
     volumes:
       - ./dockers/mysql/_data:/var/lib/mysql
+    networks:
+      - mired
+
+  backend:
+    build: .
+    container_name: asistenciasqr_backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    depends_on:
+      - mysql
     networks:
       - mired
 

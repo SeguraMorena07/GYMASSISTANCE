@@ -1,7 +1,10 @@
-import os
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+# app/config/settings.py
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
-db = SQLAlchemy(app)
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class Config:
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False

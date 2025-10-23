@@ -1,6 +1,6 @@
 from datetime import datetime
 from app import db
-from app.models import Asistencia, Membresia, User
+from app.models.user import Asistencia, Membresia, User
 
 def registrar_asistencia(cliente_id):
     cliente = User.query.get(cliente_id)

@@ -1,17 +1,26 @@
 # Imagen base con Python
 FROM python:3.10-slim
 
-# Directorio de trabajo dentro del contenedor
+# Establecer directorio de trabajo
 WORKDIR /app
 
-# Copiar el contenido del proyecto al contenedor
+# Copiar archivos del proyecto
 COPY . /app
 
 # Instalar dependencias
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Exponer el puerto 5000
+# Copiar y preparar el script de arranque
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Variables de entorno para Flask
+ENV FLASK_APP=app:create_app
+ENV FLASK_RUN_PORT=5000
+
+# Exponer el puerto
 EXPOSE 5000
 
-# Comando para ejecutar la app
-CMD ["flask", "run", "--host=0.0.0.0"]
+# Comando de arranque
+CMD ["/entrypoint.sh"]
+

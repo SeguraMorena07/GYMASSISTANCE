@@ -10,11 +10,19 @@ def create_app():
 
     db.init_app(app)
 
-    # Importar modelos para que las migraciones los detecten
-    from app import models  
+    # Importar modelos
+    from app.models.user import User, Membresia, Asistencia
+
+    # Crear tablas automáticamente (solo en desarrollo)
+    try:
+        with app.app_context():
+            db.create_all()
+            print("✅ Tablas creadas correctamente")
+    except Exception as e:
+        print("❌ Error al crear las tablas:", e)
 
     # Registrar blueprints
-    from .resources.home import home_bp
+    from app.resources.home import home_bp
     app.register_blueprint(home_bp)
 
     return app
